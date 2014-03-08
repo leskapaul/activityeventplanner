@@ -3,7 +3,9 @@ package org.geopaul.aep;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -14,7 +16,9 @@ import javax.servlet.http.*;
 public class UserServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(UserServlet.class.getName());
 	
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	private static final String P_USERID = "userId";
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String requestType = req.getParameter("requestType");
 		logger.info("received request type: " + requestType);
 		
@@ -29,7 +33,22 @@ public class UserServlet extends HttpServlet {
 		GET_ACTIVITIES {
 			@Override
 			protected void process(HttpServletRequest req, HttpServletResponse resp) {
-				
+				String userId = req.getParameter(P_USERID);
+				// TODO retrieve UserActivity objects for the given user id
+			}
+		},
+		SAVE_ACTIVITY {
+			@Override
+			protected void process(HttpServletRequest req, HttpServletResponse resp) {
+				String userId = req.getParameter(P_USERID);
+				// TODO persist a UserActivity object for the given user id
+			}
+		},
+		DELETE_ACTIVITY {
+			@Override
+			protected void process(HttpServletRequest req, HttpServletResponse resp) {
+				String userId = req.getParameter(P_USERID);
+				// TODO delete a UserActivity object for the given user id
 			}
 		};
 		
