@@ -49,6 +49,7 @@ public class UserServlet extends HttpServlet {
 				resp.getWriter().write(json);
 			}
 		},
+		// can test with payload of (URL encode first): {"userId":"geo","activityId":"2"}
 		SAVE_ACTIVITY {
 			@Override
 			protected void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -62,7 +63,7 @@ public class UserServlet extends HttpServlet {
 			@Override
 			protected void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 				String userActId = req.getParameter(P_USER_ACT_ID);
-				Dao.deleteUserActivity(userActId);
+				Dao.deleteUserActivity(Long.parseLong(userActId));  // TODO improve handling of parse error
 			}
 		};
 		

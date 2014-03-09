@@ -4,14 +4,17 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
 	<servlet>
-		<servlet-name>Activityeventplanner</servlet-name>
-		<servlet-class>org.geopaul.aep.ActivityeventplannerServlet</servlet-class>
+		<servlet-name>User</servlet-name>
+		<servlet-class>org.geopaul.aep.UserServlet</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
-		<servlet-name>Activityeventplanner</servlet-name>
-		<url-pattern>/activityeventplanner</url-pattern>
+		<servlet-name>User</servlet-name>
+		<url-pattern>/activityeventplanner/user</url-pattern>
 	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>

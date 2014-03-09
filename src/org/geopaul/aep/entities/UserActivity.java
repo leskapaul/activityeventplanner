@@ -2,15 +2,15 @@ package org.geopaul.aep.entities;
 
 public class UserActivity {
 
-	private String id;  // the id of this UserActivity 
+	private Long id;  // the id of this UserActivity 
 	private String userId;  
-	private String activityId;
+	private Long activityId;
 	private UserActivitySchedule schedule;
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getUserId() {
@@ -19,10 +19,10 @@ public class UserActivity {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getActivityId() {
+	public Long getActivityId() {
 		return activityId;
 	}
-	public void setActivityId(String activityId) {
+	public void setActivityId(Long activityId) {
 		this.activityId = activityId;
 	}
 	public UserActivitySchedule getSchedule() {
