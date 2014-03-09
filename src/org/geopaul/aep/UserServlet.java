@@ -1,11 +1,16 @@
 package org.geopaul.aep;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.geopaul.aep.entities.UserActivity;
+
+import com.google.gson.Gson;
 
 
 /**
@@ -17,6 +22,8 @@ public class UserServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(UserServlet.class.getName());
 	
 	private static final String P_USERID = "userId";
+	private static final String P_USER_ACT_ID = "userActId";
+	private static final String P_PAYLOAD = "payload";
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String requestType = req.getParameter("requestType");
@@ -25,6 +32,8 @@ public class UserServlet extends HttpServlet {
 		if (requestType == null) {
 			throw new IllegalArgumentException("parameter requestType is required");
 		}
+		
+		resp.setContentType("application/json");
 		UserRequestType urt = UserRequestType.valueOf(requestType);
 		urt.process(req, resp);
 	}
@@ -32,26 +41,32 @@ public class UserServlet extends HttpServlet {
 	static enum UserRequestType {
 		GET_ACTIVITIES {
 			@Override
-			protected void process(HttpServletRequest req, HttpServletResponse resp) {
+			protected void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 				String userId = req.getParameter(P_USERID);
-				// TODO retrieve UserActivity objects for the given user id
+				List<UserActivity> list = Dao.getUserActivities(userId);
+				Gson gson = new Gson();
+				String json = gson.toJson(list);
+				resp.getWriter().write(json);
 			}
 		},
 		SAVE_ACTIVITY {
 			@Override
-			protected void process(HttpServletRequest req, HttpServletResponse resp) {
-				String userId = req.getParameter(P_USERID);
-				// TODO persist a UserActivity object for the given user id
+			protected void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+				String json = req.getParameter(P_PAYLOAD);
+				Gson gson = new Gson();
+				UserActivity userAct = gson.fromJson(json, UserActivity.class);
+				Dao.saveUserActivity(userAct);
 			}
 		},
 		DELETE_ACTIVITY {
 			@Override
-			protected void process(HttpServletRequest req, HttpServletResponse resp) {
-				String userId = req.getParameter(P_USERID);
-				// TODO delete a UserActivity object for the given user id
+			protected void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+				String userActId = req.getParameter(P_USER_ACT_ID);
+				Dao.deleteUserActivity(userActId);
 			}
 		};
 		
-		protected abstract void process(HttpServletRequest req, HttpServletResponse resp); 
+		protected abstract void process(HttpServletRequest req, HttpServletResponse resp) throws IOException ; 
 	}
+	
 }
