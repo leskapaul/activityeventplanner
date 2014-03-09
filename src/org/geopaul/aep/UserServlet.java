@@ -49,7 +49,9 @@ public class UserServlet extends HttpServlet {
 				resp.getWriter().write(json);
 			}
 		},
-		// can test with payload of (URL encode first): {"userId":"geo","activityId":"2"}
+		/* can test with payload of (URL encode first): {"userId":"geo","activityId":"2"}
+		 * example: requestType=SAVE_ACTIVITY&payload=%7B%22userId%22%3A%22geo%22%2C%22activityId%22%3A%222%22%7D
+		 */
 		SAVE_ACTIVITY {
 			@Override
 			protected void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {

@@ -49,3 +49,16 @@ possibilities are:
   > for proximity to be effective, the app would need to know where a user is likely to be at a particular time. 
     this could be predicted based on the user's past locations (periodic storage of user location).  users should 
     also be able to specify this information
+    
+
+    
+Brainstorming
+-------------
+* You can only match up within two degrees of Facebook friends
+* Suggest times back n forth until two or more (defined on case by case basis) people agree
+* People have to confirm that others have attended, to build up a reliability score for each user
+  > make it competitive, give them ranks and avatars (reward participation)
+* equipment requirements; either it's available at the location or the users specify that they possess it
+* distinction between activity and event
+  > activity is general, includes interest, available times, locations
+  > event is concrete everything, who, what, when; reliability score measured against it
